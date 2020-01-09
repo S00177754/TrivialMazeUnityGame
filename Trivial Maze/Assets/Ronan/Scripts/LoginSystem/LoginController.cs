@@ -22,7 +22,7 @@ public class LoginController : MonoBehaviour
         LoggedIn = false;
 
         LoginPanel.GetComponent<LoginPanelController>().SetController(this);
-        //SignUpPanel.GetComponent<RegistrationPanelController>().SetController(this);
+        SignUpPanel.GetComponent<RegistrationPanelController>().SetController(this);
     }
 
     // Update is called once per frame

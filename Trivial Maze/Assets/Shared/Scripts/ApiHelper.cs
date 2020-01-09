@@ -8,6 +8,10 @@ public static class ApiHelper
 {
     public static string apiURL = "http://localhost:44342/api/";
     public static string PlayersController = "Players";
+    public static string MessagesController = "Messages";
+    public static string KeyPositionsController = "KeyPositions";
+    public static string TimeScoresController = "TimeScores";
+    public static string TriviaQuestionsController = "TriviaQuestions";
 
     //get all items from the API
     public static string GetJsonFromAPI(string controller)
@@ -98,6 +102,14 @@ public static class ApiHelper
             return player;
         }
     }
+
+    public static void PostPlayer(string username,string password)
+    {
+        Player signup = new Player() { Username = username, Password = password };
+        string json = JsonUtility.ToJson(signup);
+        PostDataToAPI(PlayersController, json);
+    }
+
 }
 
 
