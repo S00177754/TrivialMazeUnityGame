@@ -8,16 +8,30 @@ public class LoginController : MonoBehaviour
     public GameObject LoginPanel;
     public GameObject SignUpPanel;
 
+    public bool LoggedIn;
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+        
+    }
+
     void Start()
     {
         SwitchToLogin();
+        LoggedIn = false;
+
+        LoginPanel.GetComponent<LoginPanelController>().SetController(this);
+        //SignUpPanel.GetComponent<RegistrationPanelController>().SetController(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(LoggedIn == true)
+        {
+            DisablePanels();
+        }
     }
 
     public void SwitchToLogin()
@@ -29,6 +43,12 @@ public class LoginController : MonoBehaviour
     public void SwitchToSignUp()
     {
         SignUpPanel.SetActive(true);
+        LoginPanel.SetActive(false);
+    }
+
+    public void DisablePanels()
+    {
+        SignUpPanel.SetActive(false);
         LoginPanel.SetActive(false);
     }
 }
