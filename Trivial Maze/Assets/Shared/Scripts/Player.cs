@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+
+[Serializable]
+public class Player
 {
     public Guid PlayerID;
 
