@@ -180,7 +180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307542817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.09, z: 13.34}
+  m_LocalPosition: {x: 0, y: 0.4, z: 13.34}
   m_LocalScale: {x: 3.506379, y: 1.1993903, z: 3.7403}
   m_Children: []
   m_Father: {fileID: 2086642892}
@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 1811781027}
   - component: {fileID: 1811781026}
   - component: {fileID: 1811781024}
+  - component: {fileID: 1811781025}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -832,10 +833,26 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.71
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1811781025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811781023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4eb936ff6fc6c4aadb40f464fd7ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 1811781024}
+  Speed: 10
+  SprintSpeed: 15
+  Gravity: -9.81
 --- !u!136 &1811781026
 CapsuleCollider:
   m_ObjectHideFlags: 0
