@@ -9,23 +9,27 @@ public class PlayerMovementController : MonoBehaviour
 
     public float Speed = 10f;
     public float SprintSpeed = 14f;
-    public float climbSpeed = 3f;
+    //public float climbSpeed = 3f;
     public float JumpHeight = 2f;
-
     public float Gravity = -9.81f;
+
     public Transform bottomOfPlayer;
     public Transform frontOfPlayer;
     public PlayerLookController playerLookController;
     public LayerMask groundLayer;
     public LayerMask defaultLayer;
-    public float GroundCheckRadius = 0.3f;
-    public float ClimbCheckRadius = 0.3f;
+
+    public string HorizontalInput;
+    public string VerticalInput;
+    public string SprintInput;
 
     //Private
     Vector3 velocity;
     bool isTouchingGround;
     bool isTouchingClimbable;
     RaycastHit hit;
+    float GroundCheckRadius = 0.3f;
+    float ClimbCheckRadius = 0.3f;
 
     private void Start()
     {
@@ -35,8 +39,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         hit = new RaycastHit();
 
-        //Check if touching ground at the start of the update.
-        //Tried with raycast but possibly too small of a check, only checks a pinpoint instead of a small area, how about checking a radius?
         isTouchingGround = Physics.CheckSphere(bottomOfPlayer.position, GroundCheckRadius, groundLayer);
 
         //Reset velocity
@@ -46,15 +48,16 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         #region Movement X and z
+
         //Take input and move by it
-        float xMove = Input.GetAxis("Horizontal");
-        float zMove = Input.GetAxis("Vertical");
+        float xMove = Input.GetAxis(HorizontalInput);
+        float zMove = Input.GetAxis(VerticalInput);
 
         Vector3 direction = transform.right * xMove + transform.forward * zMove;
 
         if (!isTouchingClimbable)
         {
-            if (Input.GetButton("Sprint"))//Sprint setup in input axis
+            if (Input.GetButton(SprintInput))//Sprint setup in input axis
             {
                 characterController.Move(direction * Time.deltaTime * SprintSpeed);
             }
@@ -63,6 +66,7 @@ public class PlayerMovementController : MonoBehaviour
                 characterController.Move(direction * Time.deltaTime * Speed);
             }
         }
+
         //else if(isTouchingClimbable && isTouchingGround)
         //{
         //    if (Input.GetButton("Sprint"))//Sprint setup in input axis
@@ -74,6 +78,7 @@ public class PlayerMovementController : MonoBehaviour
         //        characterController.Move(direction * Time.deltaTime * Speed);
         //    }
         //}
+
         #endregion
 
         #region Jump
