@@ -18,7 +18,6 @@ public class LoginController : MonoBehaviour
 
     void Start()
     {
-        SwitchToLogin();
         LoggedIn = false;
 
         LoginPanel.GetComponent<LoginPanelController>().SetController(this);
@@ -30,6 +29,7 @@ public class LoginController : MonoBehaviour
     {
         if(LoggedIn == true)
         {
+            Debug.LogError("DisablePanels");
             DisablePanels();
         }
     }
