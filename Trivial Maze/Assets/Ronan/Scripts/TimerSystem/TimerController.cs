@@ -5,6 +5,7 @@ using TMPro;
 
 public class TimerController : MonoBehaviour
 {
+    public GameObject StartPanel;
     public TMP_Text TimerText;
 
     private float Timer;
@@ -14,7 +15,7 @@ public class TimerController : MonoBehaviour
     void Start()
     {
         Timer = 0f;
-        TimerText.text = "Timer: " + Timer;
+        TimerText.text = "Timer: " + Mathf.Round(Timer);
     }
 
     // Update is called once per frame
@@ -23,13 +24,14 @@ public class TimerController : MonoBehaviour
         if (isTimerActive)
         {
             Timer += Time.deltaTime;
-            TimerText.text = "Timer: " + Timer;
+            TimerText.text = "Timer: " + Mathf.Round(Timer);
         }
     }
 
     public void StartTimer()
     {
         isTimerActive = true;
+        StartPanel.SetActive(false);
     }
 
     public void ResetTimer()
@@ -40,5 +42,10 @@ public class TimerController : MonoBehaviour
     public void StopTimer()
     {
         isTimerActive = false;
+    }
+
+    public void PostTimeToAPI()
+    {
+
     }
 }
