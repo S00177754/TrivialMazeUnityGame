@@ -8,6 +8,6 @@ public class TimeScore
 {
     public int ID;
     public double Time;
-    public Guid PlayerID;
+    public string PlayerName;
     public Player Player;
 }

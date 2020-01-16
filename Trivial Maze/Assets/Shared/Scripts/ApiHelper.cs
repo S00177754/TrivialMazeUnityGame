@@ -110,6 +110,61 @@ public static class ApiHelper
         PostDataToAPI(PlayersController, json);
     }
 
+    public static List<TimeScore> GetScores(int topAmount)
+    {
+        string json = string.Empty;
+
+        using (WebClient client = new WebClient())
+        {
+            NameValueCollection args = new NameValueCollection();
+            args.Add("amount", topAmount.ToString());
+
+            try
+            {
+                json = GetJsonFromAPI(TimeScoresController, args);
+            }
+            catch (WebException we)
+            {
+                HttpWebResponse errorResponse = we.Response as HttpWebResponse;
+                if (errorResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+            }
+
+            Debug.Log(json);
+            return JsonUtility.FromJson<ListWrapper<TimeScore>>(json).Items;
+        }
+
+    }
+
+    public static List<TimeScore> GetScores(string Username)
+    {
+        string json = string.Empty;
+
+        using (WebClient client = new WebClient())
+        {
+            NameValueCollection args = new NameValueCollection();
+            args.Add("username", Username);
+
+            try
+            {
+                json = GetJsonFromAPI(TimeScoresController, args);
+            }
+            catch (WebException we)
+            {
+                HttpWebResponse errorResponse = we.Response as HttpWebResponse;
+                if (errorResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+            }
+
+            Debug.Log(json);
+            return JsonUtility.FromJson<ListWrapper<TimeScore>>(json).Items;
+        }
+    }
+
 }
 
 
