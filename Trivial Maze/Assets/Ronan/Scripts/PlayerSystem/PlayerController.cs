@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         SplitCamera.enabled = false;
         SinglePlayerCamera.enabled = true;
+        gameObject.GetComponent<PlayerLineOfSight>().playerCamera = SinglePlayerCamera;
     }
 
     public void SwitchToSplitCamera(float viewportX)
@@ -31,5 +32,8 @@ public class PlayerController : MonoBehaviour
         SplitCamera.enabled = true;
 
         SplitCamera.rect = new Rect(viewportX, SplitCamera.rect.y, SplitCamera.rect.width, SplitCamera.rect.height);
+
+        gameObject.GetComponent<PlayerLineOfSight>().playerCamera = SplitCamera;
+
     }
 }

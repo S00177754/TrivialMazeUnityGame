@@ -20,6 +20,7 @@ public class LoginPanelController : MonoBehaviour
             if(attempt.Password == PasswordInput.text)
             {
                 loginController.LoggedIn = true;
+                loginController.Username = UsernameInput.text;
             }
             else
             {

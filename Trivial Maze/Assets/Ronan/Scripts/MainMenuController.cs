@@ -11,7 +11,7 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoginScreen.SetActive(true);
     }
 
     // Update is called once per frame
@@ -19,28 +19,37 @@ public class MainMenuController : MonoBehaviour
     {
         if (LoginScreen.GetComponent<LoginController>().LoggedIn)
         {
-            gameObject.SetActive(false);
+            LoginScreen.SetActive(false);
         }
     }
 
     public void SinglePlayerStart()
     {
-        MenuItems.SetActive(false);
-        LoginScreen.SetActive(true);
+        if (LoginScreen.GetComponent<LoginController>().LoggedIn)
+        {
+            MenuItems.SetActive(false);
+            LoginScreen.SetActive(true);
 
-        LoginScreen.GetComponent<LoginController>().SwitchToLogin();
+            LoginScreen.GetComponent<LoginController>().SwitchToLogin();
+        }
     }
 
     public void MultiplayerStart()
     {
-        MenuItems.SetActive(false);
-        LoginScreen.SetActive(false);
+        if (LoginScreen.GetComponent<LoginController>().LoggedIn)
+        {
+            MenuItems.SetActive(false);
+            LoginScreen.SetActive(false);
+        }
     }
 
     public void ViewLeaderboard()
     {
-        MenuItems.SetActive(false);
-        LoginScreen.SetActive(false);
+        if (LoginScreen.GetComponent<LoginController>().LoggedIn)
+        {
+            MenuItems.SetActive(false);
+            LoginScreen.SetActive(false);
+        }
     }
 
     public void QuitGame()
@@ -48,8 +57,9 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
     }
 
-    public void TurnOffMainMenu()
+
+    public void ReturnToMainMenu()
     {
-        MainMenuPanel.SetActive(false);
+        
     }
 }
