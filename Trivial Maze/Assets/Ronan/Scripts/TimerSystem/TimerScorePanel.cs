@@ -11,7 +11,7 @@ public class TimerScorePanel : MonoBehaviour
 
     public void SetDetails(TimeScore timeScore)
     {
-        Username.text = timeScore.PlayerName;
+        Username.text = timeScore.PlayerUsername;
         TimeScore.text = timeScore.Time.ToString();
     }
 

@@ -49,7 +49,7 @@ public class QuestionController : MonoBehaviour
     {
         QuestionPanelGroup.alpha = 1;
         //Get Question object from API
-        questionJson = ApiHelper.GetJsonFromAPI("TriviaQuestion");
+        questionJson = ApiHelper.GetJsonFromAPI("TriviaQuestion"); //this will pull down all trivia questions so fromjson<TriviaQ> wont work, youll need to use the list wrapper
         question = JsonUtility.FromJson<TriviaQuestion>(questionJson);
         txtQuestion.text = question.Question;
         random = new System.Random();

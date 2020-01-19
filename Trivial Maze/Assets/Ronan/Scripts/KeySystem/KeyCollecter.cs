@@ -8,6 +8,8 @@ public class KeyCollecter : MonoBehaviour
     public int TierTwoKeys;
     public int TierThreeKeys;
 
+    public TimerController TimerController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,7 @@ public class KeyCollecter : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("collision");
+        Debug.Log("On Trigger Enter");
         
         if(collision.gameObject.tag == "key")
         {
@@ -45,12 +47,9 @@ public class KeyCollecter : MonoBehaviour
             }
 
             Destroy(collision.gameObject);
-        }    
-    }
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "KeyDoor")
+        if (collision.gameObject.tag == "KeyDoor")
         {
 
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Player");
@@ -76,9 +75,11 @@ public class KeyCollecter : MonoBehaviour
 
             if (totalKeys >= collision.gameObject.GetComponent<KeyDoor>().requiredKeys)
             {
-                Destroy(collision.gameObject);
+                TimerController.StopTimer();
             }
-        
+
         }
+
     }
+
 }

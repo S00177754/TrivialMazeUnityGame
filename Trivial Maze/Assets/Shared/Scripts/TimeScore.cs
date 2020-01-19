@@ -8,6 +8,12 @@ public class TimeScore
 {
     public int ID;
     public double Time;
-    public string PlayerName;
+    public string PlayerUsername;
     public Player Player;
+}
+
+[Serializable]
+public class TimeScoreCollection
+{
+    public TimeScore[] scores;
 }

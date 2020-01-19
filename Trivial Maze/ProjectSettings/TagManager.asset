@@ -7,6 +7,7 @@ TagManager:
   - Climbable
   - key
   - KeyDoor
+  - Timer
   layers:
   - Default
   - TransparentFX

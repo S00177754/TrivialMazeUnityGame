@@ -6,7 +6,9 @@ public class MainMenuController : MonoBehaviour
 {
     public GameObject MainMenuPanel;
     public GameObject MenuItems;
+    public GameObject LeaderboardPanel;
     public GameObject LoginScreen;
+    public GameObject InstructionScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -27,19 +29,24 @@ public class MainMenuController : MonoBehaviour
     {
         if (LoginScreen.GetComponent<LoginController>().LoggedIn)
         {
-            MenuItems.SetActive(false);
-            LoginScreen.SetActive(true);
-
-            LoginScreen.GetComponent<LoginController>().SwitchToLogin();
+            MainMenuPanel.SetActive(false);
+            Time.timeScale = 0;
         }
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        InstructionScreen.SetActive(false);
     }
 
     public void MultiplayerStart()
     {
         if (LoginScreen.GetComponent<LoginController>().LoggedIn)
         {
-            MenuItems.SetActive(false);
-            LoginScreen.SetActive(false);
+            MainMenuPanel.SetActive(false);
+            Time.timeScale = 0;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<SplitscreenController>().IsMultiplayer = true;
         }
     }
 
@@ -48,8 +55,15 @@ public class MainMenuController : MonoBehaviour
         if (LoginScreen.GetComponent<LoginController>().LoggedIn)
         {
             MenuItems.SetActive(false);
-            LoginScreen.SetActive(false);
+            LeaderboardPanel.SetActive(true);
         }
+    }
+
+    public void ReturnToMenu()
+    {
+        MenuItems.SetActive(true);
+        MainMenuPanel.SetActive(true);
+        LeaderboardPanel.SetActive(false);
     }
 
     public void QuitGame()
@@ -57,9 +71,4 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
     }
 
-
-    public void ReturnToMainMenu()
-    {
-        
-    }
 }

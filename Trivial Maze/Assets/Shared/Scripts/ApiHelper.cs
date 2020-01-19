@@ -131,7 +131,7 @@ public static class ApiHelper
                     return null;
                 }
             }
-
+            json = ModifyJsonString(json);
             Debug.Log(json);
             return JsonUtility.FromJson<ListWrapper<TimeScore>>(json).Items;
         }
@@ -159,7 +159,7 @@ public static class ApiHelper
                     return null;
                 }
             }
-
+            json = ModifyJsonString(json);
             Debug.Log(json);
             return JsonUtility.FromJson<ListWrapper<TimeScore>>(json).Items;
         }

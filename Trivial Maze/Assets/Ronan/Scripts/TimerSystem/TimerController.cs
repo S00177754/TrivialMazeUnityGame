@@ -5,7 +5,7 @@ using TMPro;
 
 public class TimerController : MonoBehaviour
 {
-    public GameObject StartPanel;
+    //public GameObject StartPanel;
     public TMP_Text TimerText;
 
     private float Timer;
@@ -31,7 +31,7 @@ public class TimerController : MonoBehaviour
     public void StartTimer()
     {
         isTimerActive = true;
-        StartPanel.SetActive(false);
+       //StartPanel.SetActive(false);
     }
 
     public void ResetTimer()

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public Camera SinglePlayerCamera;
     public Camera SplitCamera;
+    public TimerController timeController;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Timer")
+        {
+            if(other.gameObject.GetComponent<TimerZone>().Type == ZoneType.Start)
+            {
+                timeController.StartTimer();
+            }
+            else if(other.gameObject.GetComponent<TimerZone>().Type == ZoneType.End)
+            {
+                timeController.StopTimer();
+            }
+        }
     }
 
     public void SwitchToSingleCamera()
