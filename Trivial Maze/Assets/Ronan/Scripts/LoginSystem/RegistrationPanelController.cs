@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RegistrationPanelController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private LoginController loginController;
+
+    public TMP_InputField UsernameInput;
+    public TMP_InputField PasswordInput;
+    public TMP_InputField ConfirmPasswordInput;
+
+    public void Register()
     {
-        
+        if(PasswordInput.text == ConfirmPasswordInput.text)
+        {
+            ApiHelper.PostPlayer(UsernameInput.text, PasswordInput.text);
+            loginController.LoggedIn = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetController(LoginController controller)
     {
-        
+        loginController = controller;
     }
 }
