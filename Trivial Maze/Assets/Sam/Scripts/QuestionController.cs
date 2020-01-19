@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class QuestionController : MonoBehaviour
 {
+    public CanvasGroup QuestionPanelGroup;
     List<string> Answers;
     string questionJson;
     TriviaQuestion question;
@@ -46,6 +47,7 @@ public class QuestionController : MonoBehaviour
 
     private void OnEnable()
     {
+        QuestionPanelGroup.alpha = 1;
         //Get Question object from API
         questionJson = ApiHelper.GetJsonFromAPI("TriviaQuestion");
         question = JsonUtility.FromJson<TriviaQuestion>(questionJson);
