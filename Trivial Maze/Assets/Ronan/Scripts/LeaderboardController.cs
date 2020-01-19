@@ -50,7 +50,7 @@ public class LeaderboardController : MonoBehaviour
         {
             scorePanel = Instantiate(ScorePanelPrefab, Content);
             scorePanel.GetComponent<TimerScorePanel>().SetDetails(scores[i]);
-            scorePanel.GetComponent<TimerScorePanel>().SetPosition(i);
+            scorePanel.GetComponent<TimerScorePanel>().SetPosition(i + 1);
         }
     }
 
@@ -64,7 +64,7 @@ public class LeaderboardController : MonoBehaviour
         {
             scorePanel = Instantiate(ScorePanelPrefab, Content);
             scorePanel.GetComponent<TimerScorePanel>().SetDetails(scores[i]);
-            scorePanel.GetComponent<TimerScorePanel>().SetPosition(i);
+            scorePanel.GetComponent<TimerScorePanel>().SetPosition(i + 1);
         }
     }
 

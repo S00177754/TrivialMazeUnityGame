@@ -76,10 +76,19 @@ public class KeyCollecter : MonoBehaviour
             if (totalKeys >= collision.gameObject.GetComponent<KeyDoor>().requiredKeys)
             {
                 TimerController.StopTimer();
+                TimerController.PostTimeToAPI();
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().ReturnToMenu();
             }
 
         }
 
+    }
+
+    public void ResetToStart()
+    {
+        TierOneKeys = 0;
+        TierTwoKeys = 0;
+        TierThreeKeys = 0;
     }
 
 }

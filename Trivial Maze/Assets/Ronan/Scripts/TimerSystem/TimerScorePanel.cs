@@ -12,7 +12,7 @@ public class TimerScorePanel : MonoBehaviour
     public void SetDetails(TimeScore timeScore)
     {
         Username.text = timeScore.PlayerUsername;
-        TimeScore.text = timeScore.Time.ToString();
+        TimeScore.text = Mathf.RoundToInt((float)timeScore.Time).ToString();
     }
 
     public void SetPosition(int position)

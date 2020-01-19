@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     public Camera SplitCamera;
     public TimerController timeController;
 
+    private Vector3 originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    //Weird issues with collision
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Timer")
@@ -30,7 +33,7 @@ public class PlayerController : MonoBehaviour
             }
             else if(other.gameObject.GetComponent<TimerZone>().Type == ZoneType.End)
             {
-                timeController.StopTimer();
+                //timeController.StopTimer();
             }
         }
     }
@@ -51,5 +54,10 @@ public class PlayerController : MonoBehaviour
 
         gameObject.GetComponent<PlayerLineOfSight>().playerCamera = SplitCamera;
 
+    }
+
+    public void ResetToStart()
+    {
+        transform.position = originalPosition;
     }
 }

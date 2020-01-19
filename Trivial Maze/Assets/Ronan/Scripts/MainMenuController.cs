@@ -31,6 +31,7 @@ public class MainMenuController : MonoBehaviour
         {
             MainMenuPanel.SetActive(false);
             Time.timeScale = 0;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<SplitscreenController>().IsMultiplayer = false;
         }
     }
 
@@ -64,6 +65,7 @@ public class MainMenuController : MonoBehaviour
         MenuItems.SetActive(true);
         MainMenuPanel.SetActive(true);
         LeaderboardPanel.SetActive(false);
+        //Time.timeScale = 0;
     }
 
     public void QuitGame()

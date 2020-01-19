@@ -5,7 +5,7 @@ using TMPro;
 
 public class TimerController : MonoBehaviour
 {
-    //public GameObject StartPanel;
+    public LoginController loginController;
     public TMP_Text TimerText;
 
     private float Timer;
@@ -34,7 +34,7 @@ public class TimerController : MonoBehaviour
        //StartPanel.SetActive(false);
     }
 
-    public void ResetTimer()
+    public void ResetToStart()
     {
         Timer = 0f;
     }
@@ -42,10 +42,11 @@ public class TimerController : MonoBehaviour
     public void StopTimer()
     {
         isTimerActive = false;
+        PostTimeToAPI();
     }
 
     public void PostTimeToAPI()
     {
-
+        ApiHelper.PostDataToAPI(ApiHelper.TimeScoresController, JsonUtility.ToJson(new TimeScore() { Time = Timer, PlayerUsername = loginController.Username, }));
     }
 }
