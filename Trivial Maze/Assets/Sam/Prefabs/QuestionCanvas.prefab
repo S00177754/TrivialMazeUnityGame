@@ -862,7 +862,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7888043064182805483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1346437400955782973}
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7888043064270352612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,10 +1068,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionPanelGroup: {fileID: 4781676721199135443}
   txtQuestion: {fileID: 7888043063453929431}
+  btnAnswer1: {fileID: 7888043064182805460}
   Answer1: {fileID: 7888043064270352634}
+  btnAnswer2: {fileID: 7888043064950130661}
   Answer2: {fileID: 7888043063996751635}
+  btnAnswer3: {fileID: 7888043063880184694}
   Answer3: {fileID: 7888043063896291094}
+  btnAnswer4: {fileID: 7888043063991031699}
   Answer4: {fileID: 7888043063104092321}
+  ButtonList:
+  - {fileID: 7888043064182805460}
+  - {fileID: 7888043064950130661}
+  - {fileID: 7888043063880184694}
+  - {fileID: 7888043063991031699}
+  AnswerList:
+  - {fileID: 7888043064270352634}
+  - {fileID: 7888043063996751635}
+  - {fileID: 7888043063896291094}
+  - {fileID: 7888043063104092321}
 --- !u!225 &4781676721199135443
 CanvasGroup:
   m_ObjectHideFlags: 0
