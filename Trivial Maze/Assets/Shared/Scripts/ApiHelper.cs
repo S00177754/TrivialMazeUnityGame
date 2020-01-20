@@ -165,6 +165,31 @@ public static class ApiHelper
         }
     }
 
+    public static List<TriviaQuestion> GetQuestions()
+    {
+        string json = string.Empty;
+
+        using (WebClient client = new WebClient())
+        {
+            try
+            {
+                json = GetJsonFromAPI(TriviaQuestionsController);
+            }
+            catch (WebException we)
+            {
+                HttpWebResponse errorResponse = we.Response as HttpWebResponse;
+                if(errorResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+            }
+            json = ModifyJsonString(json);
+            Debug.Log(json);
+            return JsonUtility.FromJson<ListWrapper<TriviaQuestion>>(json).Items;
+
+        }
+    }
+
 }
 
 

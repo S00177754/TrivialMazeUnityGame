@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum isAnswerCorrect
+public enum IsAnswerCorrect
 {
     yes, no, unanswered
 }
@@ -14,12 +14,12 @@ public class QuestionController : MonoBehaviour
     public CanvasGroup QuestionPanelGroup;
     List<string> Answers;
     string questionJson;
-    ListWrapper<TriviaQuestion> Questions;
+    List<TriviaQuestion> Questions;
     Queue<TriviaQuestion> QuestionQueue;
     TriviaQuestion ActiveQuestion;
     System.Random random;
 
-    isAnswerCorrect checkedAnswer;
+    IsAnswerCorrect checkedAnswer;
     public Text txtQuestion;
     public Button btnAnswer1;
     public Text Answer1;
@@ -35,15 +35,21 @@ public class QuestionController : MonoBehaviour
 
     Button btnClickedButton;
     string ClickedButton;
-    string answewrString;
 
-    void Start()
+    void Initialize()
     {
+        ActiveQuestion = null;
+        QuestionQueue = new Queue<TriviaQuestion>();
+        Questions = new List<TriviaQuestion>();
+        Answers = new List<string>();
+        checkedAnswer = IsAnswerCorrect.unanswered;
+
         //Get Question object from API
-        questionJson = ApiHelper.GetJsonFromAPI("TriviaQuestion"); 
-        Questions = JsonUtility.FromJson<ListWrapper<TriviaQuestion>>(questionJson);
+        Questions = ApiHelper.GetQuestions();
+
+
         //initialise queue for each question from API
-        foreach (TriviaQuestion question in Questions.Items)
+        foreach (TriviaQuestion question in Questions)
         {
             QuestionQueue.Enqueue(question);
         }
@@ -52,25 +58,20 @@ public class QuestionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
-
         if(isActiveAndEnabled)
         {
             switch(checkedAnswer)
             {
-                case (isAnswerCorrect.unanswered):
-                    
+                case (IsAnswerCorrect.unanswered):
                     break;
-                case (isAnswerCorrect.yes):
+                case (IsAnswerCorrect.yes):
                     foreach (var button in ButtonList)
                     {
                         button.image.color = Color.gray;
                     }
                     btnClickedButton.image.color = Color.green;
                     break;
-                case (isAnswerCorrect.no):
+                case (IsAnswerCorrect.no):
                     foreach (var button in ButtonList)
                     {
                         button.image.color = Color.gray;
@@ -98,8 +99,9 @@ public class QuestionController : MonoBehaviour
 
     private void OnEnable()
     {
+        Initialize();
         //initialise question
-        checkedAnswer = isAnswerCorrect.unanswered;
+        checkedAnswer = IsAnswerCorrect.unanswered;
         QuestionPanelGroup.alpha = 1;
         ActiveQuestion = QuestionQueue.Dequeue();
         QuestionQueue.Enqueue(ActiveQuestion);
@@ -111,7 +113,7 @@ public class QuestionController : MonoBehaviour
         }
 
         random = new System.Random();//using system.Random to differentiate from UnityEngine.Random
-        Answers = new List<string>();
+
         //Assign quesion answers to list
         Answers.Clear();//clear previous answers
         Answers.Add(ActiveQuestion.Answer);
@@ -155,28 +157,22 @@ public class QuestionController : MonoBehaviour
         }
     }
 
-    
-
     void CheckAnswer(string contentString)
     {
         //checks if answer given is correct
         if(contentString == ActiveQuestion.Answer)
         {
-            checkedAnswer = isAnswerCorrect.yes;
+            checkedAnswer = IsAnswerCorrect.yes;
         }
         else
         {
-            checkedAnswer = isAnswerCorrect.no;
+            checkedAnswer = IsAnswerCorrect.no;
         }
-        //get button text
-        //compare with answer
-        //update UI dependint on isCorrect
-
     }
 
     public bool IsAnsweredAndCorrect()
     {
-        if (checkedAnswer == isAnswerCorrect.yes)
+        if (checkedAnswer == IsAnswerCorrect.yes)
             return true;
         else
             return false;
