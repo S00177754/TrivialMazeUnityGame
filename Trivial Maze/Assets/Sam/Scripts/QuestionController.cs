@@ -64,6 +64,7 @@ public class QuestionController : MonoBehaviour
             {
                 case (IsAnswerCorrect.unanswered):
                     break;
+
                 case (IsAnswerCorrect.yes):
                     foreach (var button in ButtonList)
                     {
@@ -71,6 +72,7 @@ public class QuestionController : MonoBehaviour
                     }
                     btnClickedButton.image.color = Color.green;
                     break;
+
                 case (IsAnswerCorrect.no):
                     foreach (var button in ButtonList)
                     {
@@ -133,8 +135,8 @@ public class QuestionController : MonoBehaviour
 
     public void ButtonClick()
     {
-        if(EventSystem.current.currentSelectedGameObject.gameObject.GetType() == typeof(Button))
-        {
+        //if(EventSystem.current.currentSelectedGameObject.gameObject.GetType() == typeof(Button))
+        //{
             ClickedButton = EventSystem.current.currentSelectedGameObject.gameObject.name;
             
             switch(ClickedButton)
@@ -154,7 +156,7 @@ public class QuestionController : MonoBehaviour
                 default:
                     break;
             }
-        }
+        //}
     }
 
     void CheckAnswer(string contentString)
@@ -168,6 +170,8 @@ public class QuestionController : MonoBehaviour
         {
             checkedAnswer = IsAnswerCorrect.no;
         }
+
+            btnClickedButton = EventSystem.current.currentSelectedGameObject.gameObject.GetComponent<Button>();
     }
 
     public bool IsAnsweredAndCorrect()

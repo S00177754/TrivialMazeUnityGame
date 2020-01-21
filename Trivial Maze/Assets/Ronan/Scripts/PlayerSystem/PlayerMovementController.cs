@@ -29,7 +29,7 @@ public class PlayerMovementController : MonoBehaviour
     bool isTouchingClimbable;
     RaycastHit hit;
     float GroundCheckRadius = 0.3f;
-    float ClimbCheckRadius = 0.3f;
+    //float ClimbCheckRadius = 0.3f;
 
     private void Start()
     {
