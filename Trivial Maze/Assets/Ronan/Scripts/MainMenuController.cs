@@ -31,7 +31,9 @@ public class MainMenuController : MonoBehaviour
         {
             MainMenuPanel.SetActive(false);
             Time.timeScale = 0;
+            InstructionScreen.SetActive(true);
             GameObject.FindGameObjectWithTag("GameController").GetComponent<SplitscreenController>().IsMultiplayer = false;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<KeyPlacer>().InstantiateKeys();
         }
     }
 
@@ -47,7 +49,9 @@ public class MainMenuController : MonoBehaviour
         {
             MainMenuPanel.SetActive(false);
             Time.timeScale = 0;
+            InstructionScreen.SetActive(true);
             GameObject.FindGameObjectWithTag("GameController").GetComponent<SplitscreenController>().IsMultiplayer = true;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<KeyPlacer>().InstantiateKeys();
         }
     }
 

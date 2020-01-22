@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemRotateFloat : MonoBehaviour
 {
-    public float RotationSpeed;
+    public float RotationSpeed = 100f;
 
     // Start is called before the first frame update
     void Start()

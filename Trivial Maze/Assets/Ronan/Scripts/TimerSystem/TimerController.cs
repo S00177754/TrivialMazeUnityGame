@@ -37,6 +37,7 @@ public class TimerController : MonoBehaviour
     public void ResetToStart()
     {
         Timer = 0f;
+        TimerText.text = "Timer: " + 0;
     }
 
     public void StopTimer()

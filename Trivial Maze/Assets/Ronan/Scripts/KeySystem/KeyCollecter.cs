@@ -76,8 +76,17 @@ public class KeyCollecter : MonoBehaviour
             if (totalKeys >= collision.gameObject.GetComponent<KeyDoor>().requiredKeys)
             {
                 TimerController.StopTimer();
-                TimerController.PostTimeToAPI();
+
+                if (!GameObject.FindGameObjectWithTag("GameController").GetComponent<SplitscreenController>().IsMultiplayer)
+                {
+                    TimerController.PostTimeToAPI();
+                }
+                
+                TimerController.ResetToStart();
+
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().ReturnToMenu();
+                Time.timeScale = 0;
+
             }
 
         }

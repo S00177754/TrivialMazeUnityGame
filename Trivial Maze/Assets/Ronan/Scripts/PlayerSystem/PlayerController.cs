@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     public void ResetToStart()
     {
+        gameObject.GetComponent<CharacterController>().enabled = false;
         transform.position = originalPosition;
+        gameObject.GetComponent<CharacterController>().enabled = true;
     }
 }
