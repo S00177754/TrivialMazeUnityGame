@@ -5,19 +5,21 @@ using UnityEngine;
 public class KeyPlacer : MonoBehaviour
 {
 
-    public List<GameObject> keys;
-    public Transform parentGroup;
+    public List<Transform> keys;
+    public GameObject KeyPrefab;
 
     public void InstantiateKeys()
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("key");
+
         foreach (var go in gos)
         {
             Destroy(go);
         }
-        foreach (var go in gos)
+
+        foreach (var key in keys)
         {
-            Instantiate(go,parentGroup,true);
+            Instantiate(KeyPrefab,key);
         }
 
     }
