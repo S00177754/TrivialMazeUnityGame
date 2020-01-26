@@ -60,7 +60,7 @@ public class ChatBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        canvasGroup.alpha = 0.6f;
+        canvasGroup.alpha = 0.9f;
         CancelInvoke();
     }
 
