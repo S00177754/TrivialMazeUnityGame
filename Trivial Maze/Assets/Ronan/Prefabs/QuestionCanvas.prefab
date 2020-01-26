@@ -754,6 +754,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionPanelGroup: {fileID: 8559727175072065021}
+  Questions: []
+  ActiveQuestion:
+    ID: 0
+    Question: 
+    Answer: 
+    FakeAnswerOne: 
+    FakeAnswerTwo: 
+    FakeAnswerThree: 
   closeTimer: 0
   isAnswered: 0
   checkedAnswer: 2

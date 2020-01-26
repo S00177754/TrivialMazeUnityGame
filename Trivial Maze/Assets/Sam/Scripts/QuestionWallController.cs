@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class QuestionWallController : MonoBehaviour
 { 
@@ -10,6 +11,9 @@ public class QuestionWallController : MonoBehaviour
     public Material DefaultMaterial;
     public Material InRangeMaterial;
     QuestionController questionControler;
+
+    [Header("Text Prompt")]
+    public TMP_Text triggerText;
 
     void Start()
     {
@@ -22,12 +26,19 @@ public class QuestionWallController : MonoBehaviour
     {
         if(isInRange)
         {
+            triggerText.gameObject.SetActive(true);
             transform.parent.gameObject.GetComponent<MeshRenderer>().material = InRangeMaterial;
             //transform.parent.gameObject.GetComponent<Material>().SetColor("Color", Color.white);
             if(Input.GetKeyDown(KeyCode.G))
             {
                 QuestionCanvas.gameObject.SetActive(true);
                 QuestionCanvas.enabled = true;
+
+                GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject player in gos)
+                {
+                    player.GetComponent<PlayerMovementController>().MovementLocked = true;
+                }
             }
 
             if(!isAnswered && QuestionCanvas.isActiveAndEnabled)
@@ -53,13 +64,22 @@ public class QuestionWallController : MonoBehaviour
                             questionControler.ActiveQuestion = questionControler.QuestionQueue.Dequeue();
                             questionControler.QuestionQueue.Enqueue(questionControler.ActiveQuestion);
                             QuestionCanvas.gameObject.SetActive(false);
+
+                            GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
+                            foreach (GameObject player in gos)
+                            {
+                                player.GetComponent<PlayerMovementController>().MovementLocked = false;
+                            }
                         }
                         break;
                 }
             }
         }
         else
+        {
             transform.parent.gameObject.GetComponent<MeshRenderer>().material = DefaultMaterial;
+            triggerText.gameObject.SetActive(false);
+        }
 
     }
 
