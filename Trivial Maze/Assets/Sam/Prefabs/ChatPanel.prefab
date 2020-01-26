@@ -33,7 +33,7 @@ RectTransform:
   - {fileID: 8066186713087041672}
   - {fileID: 8066186713788494303}
   m_Father: {fileID: 8066186713789898329}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -381,7 +381,7 @@ RectTransform:
   - {fileID: 8066186713901581246}
   - {fileID: 8066186712155619563}
   m_Father: {fileID: 8066186713789898329}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 8066186713789898341}
   - component: {fileID: 8066186713789898330}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ChatPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,8 +879,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8066186712093019879}
   - {fileID: 8066186713093088600}
+  - {fileID: 8066186712093019879}
   - {fileID: 8066186713221332373}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -950,11 +950,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa6b695aa99d44382accbbfafb6a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtMessage: {fileID: 8066186713093088603}
   canvasGroup: {fileID: 8066186713789898341}
-  chatMessage: {fileID: 1113538097680413521, guid: 0fbbceb39ef3d094fb20219c914841f5,
-    type: 3}
+  txtMessage: {fileID: 8066186713093088603}
   Username: 
+  ChatMessage: {fileID: 0}
+  signalRController: {fileID: 0}
+  dispatcher: {fileID: 0}
+  content: {fileID: 0}
 --- !u!1 &8066186713828074730
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,63 +1,88 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChatBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public InputField txtMessage;
     public CanvasGroup canvasGroup;
-    public GameObject chatMessage;
+    public InputField txtMessage;
     public string Username = "";
+    public GameObject ChatMessage;
 
-    //NEEDS INITIALISED
-    Player CurrentPlayer;
+    public SignalRController signalRController;
+    public UnityMainThreadDispatcher dispatcher;
+    public RectTransform content;
 
     void Start()
     {
-        //Setup player
+        signalRController.OnLoggedIn += SignalRController_OnLoggedIn;
+        signalRController.OnUserJoined += SignalRController_OnUserJoined;
+        signalRController.OnUserLeft += SignalRController_OnUserLeft;
+        signalRController.OnMessageRecieved += SignalRController_OnMessageRecieved;
+    }
+
+    private IEnumerator CreateChatBox(string message)
+    {
+        GameObject textGameObject = Instantiate(ChatMessage, content.transform);
+        TextMeshProUGUI textControl = textGameObject.GetComponent<TextMeshProUGUI>();
+        textControl.text = message;
+
+        yield return null;
+    }
+
+    private void SignalRController_OnMessageRecieved(string value)
+    {
+        UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value));
+    }
+
+    private void SignalRController_OnUserLeft(string value)
+    {
+        UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value + " has left."));
+    }
+
+    private void SignalRController_OnUserJoined(string value)
+    {
+        UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value + " has joined."));
+    }
+
+    private void SignalRController_OnLoggedIn()
+    {
+        UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox("LoggedIn"));
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1;
-        CancelInvoke("HideChatBox");
+        canvasGroup.alpha = 0.6f;
+        CancelInvoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Invoke("HideChatBox", 3f);
-
+        Invoke("HideChatBox", 3);
     }
 
-    void HideChatBox()
+    private void HideChatBox()
     {
         canvasGroup.alpha = 0;
     }
 
-    //Call when button pressed or enter button pressed
     public void SendChatMessage()
     {
-        if(txtMessage != null)
+        if (txtMessage != null)
         {
-            if(!string.IsNullOrEmpty(txtMessage.text))
+            if (!string.IsNullOrEmpty(txtMessage.text))
             {
-                //SEND TO SERVER
-                Message newMessage = new Message
-                {
-                    //Add player and PlayerID
-                    DateSent = DateTime.Now,
-                    MessageText = txtMessage.text
-                };
-                string json = JsonUtility.ToJson(newMessage);
-                ApiHelper.PostDataToAPI("Message", json);
+                signalRController.SendChatMessage(txtMessage.text);
+                StartCoroutine(CreateChatBox(txtMessage.text));
 
-                Debug.Log(newMessage);
-                txtMessage.text = null;
+                txtMessage.text = "";
             }
         }
-
     }
+
+
 }
