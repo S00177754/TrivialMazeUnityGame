@@ -61,6 +61,8 @@ MonoBehaviour:
   isAnswered: 0
   QuestionCanvas: {fileID: 6477964588580027737, guid: 73d64155fff98c349b504a638484b91c,
     type: 3}
+  DefaultMaterial: {fileID: 2100000, guid: 11709844013821447a4c07bfb3505e66, type: 2}
+  InRangeMaterial: {fileID: 2100000, guid: 7d03f79753c38374b9e7476303563f8a, type: 2}
 --- !u!1 &2095118729516924633
 GameObject:
   m_ObjectHideFlags: 0

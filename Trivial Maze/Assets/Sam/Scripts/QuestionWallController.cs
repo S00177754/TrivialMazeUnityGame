@@ -7,8 +7,9 @@ public class QuestionWallController : MonoBehaviour
     public bool isInRange;
     public bool isAnswered;
     public Canvas QuestionCanvas;
+    public Material DefaultMaterial;
+    public Material InRangeMaterial;
     QuestionController questionControler;
-
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class QuestionWallController : MonoBehaviour
     {
         if(isInRange)
         {
+            transform.parent.gameObject.GetComponent<MeshRenderer>().material = InRangeMaterial;
             //transform.parent.gameObject.GetComponent<Material>().SetColor("Color", Color.white);
             if(Input.GetKeyDown(KeyCode.G))
             {
@@ -56,6 +58,9 @@ public class QuestionWallController : MonoBehaviour
                 }
             }
         }
+        else
+            transform.parent.gameObject.GetComponent<MeshRenderer>().material = DefaultMaterial;
+
     }
 
     private void OnTriggerEnter(Collider other)
