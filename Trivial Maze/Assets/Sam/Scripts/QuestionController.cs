@@ -19,16 +19,10 @@ public class QuestionController : MonoBehaviour
     TriviaQuestion ActiveQuestion;
     System.Random random;
 
-    IsAnswerCorrect checkedAnswer;
+    public float closeTimer;
+    public bool isAnswered;
+    public IsAnswerCorrect checkedAnswer;
     public Text txtQuestion;
-    public Button btnAnswer1;
-    public Text Answer1;
-    public Button btnAnswer2;
-    public Text Answer2;
-    public Button btnAnswer3;
-    public Text Answer3;
-    public Button btnAnswer4;
-    public Text Answer4;
 
     public List<Button> ButtonList;
     public List<Text> AnswerList;
@@ -43,10 +37,10 @@ public class QuestionController : MonoBehaviour
         Questions = new List<TriviaQuestion>();
         Answers = new List<string>();
         checkedAnswer = IsAnswerCorrect.unanswered;
-
+        isAnswered = false;
         //Get Question object from API
         Questions = ApiHelper.GetQuestions();
-
+        closeTimer = 0f;
 
         //initialise queue for each question from API
         foreach (TriviaQuestion question in Questions)
@@ -58,30 +52,54 @@ public class QuestionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isActiveAndEnabled)
-        {
-            switch(checkedAnswer)
+        //if(!isAnswered)
+        //{
+            if(checkedAnswer == IsAnswerCorrect.unanswered)
             {
-                case (IsAnswerCorrect.unanswered):
-                    break;
+                switch(checkedAnswer)
+                {
+                    case (IsAnswerCorrect.unanswered):
+                        break;
 
-                case (IsAnswerCorrect.yes):
-                    foreach (var button in ButtonList)
-                    {
-                        button.image.color = Color.gray;
-                    }
-                    btnClickedButton.image.color = Color.green;
-                    break;
+                    case (IsAnswerCorrect.yes):
+                        foreach (var button in ButtonList)
+                        {
+                            button.image.color = Color.gray;
+                        }
+                        btnClickedButton.image.color = Color.green;
+                        //closeTimer = 5000f;
+                        isAnswered = true;
+                        ActiveQuestion = QuestionQueue.Dequeue();
+                        QuestionQueue.Enqueue(ActiveQuestion);
+                        transform.parent.gameObject.SetActive(false);
+                        break;
 
-                case (IsAnswerCorrect.no):
-                    foreach (var button in ButtonList)
-                    {
-                        button.image.color = Color.gray;
-                    }
-                    btnClickedButton.image.color = Color.red;
-                    break;
+                    case (IsAnswerCorrect.no):
+                        foreach (var button in ButtonList)
+                        {
+                            button.image.color = Color.gray;
+                        }
+                        btnClickedButton.image.color = Color.red;
+                        //closeTimer = 5000f;
+                        ActiveQuestion = QuestionQueue.Dequeue();
+                        QuestionQueue.Enqueue(ActiveQuestion);
+                        isAnswered = true;
+                        transform.parent.gameObject.SetActive(false);
+                        break;
+                }
             }
-        }
+        //}
+
+
+        //if (checkedAnswer == IsAnswerCorrect.no || checkedAnswer == IsAnswerCorrect.yes)
+        //{
+        //    if (closeTimer > 0f)
+        //        closeTimer -= Time.deltaTime;
+        //    if (closeTimer <= 0f)
+        //        gameObject.SetActive(false);
+               
+
+        //}
     }
 
 
@@ -126,11 +144,10 @@ public class QuestionController : MonoBehaviour
         Shuffle(Answers);
 
         //Assign text to box and button text
-        btnAnswer1.GetComponentInChildren<Text>().text = Answers[0];
-        //Answer1.text = Answers[0];
-        Answer2.text = Answers[1];
-        Answer3.text = Answers[2];
-        Answer4.text = Answers[3];
+        AnswerList[0].GetComponentInChildren<Text>().text = Answers[0];
+        AnswerList[1].GetComponentInChildren<Text>().text = Answers[1];
+        AnswerList[2].GetComponentInChildren<Text>().text = Answers[2];
+        AnswerList[3].GetComponentInChildren<Text>().text = Answers[3];
     }
 
     public void ButtonClick()
@@ -156,7 +173,7 @@ public class QuestionController : MonoBehaviour
                 default:
                     break;
             }
-        //}
+        
     }
 
     void CheckAnswer(string contentString)
@@ -171,7 +188,7 @@ public class QuestionController : MonoBehaviour
             checkedAnswer = IsAnswerCorrect.no;
         }
 
-            btnClickedButton = EventSystem.current.currentSelectedGameObject.gameObject.GetComponent<Button>();
+        btnClickedButton = EventSystem.current.currentSelectedGameObject.gameObject.GetComponent<Button>();
     }
 
     public bool IsAnsweredAndCorrect()
