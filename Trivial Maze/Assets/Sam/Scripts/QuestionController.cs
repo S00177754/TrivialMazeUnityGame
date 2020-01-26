@@ -21,6 +21,7 @@ public class QuestionController : MonoBehaviour
 
     public float closeTimer;
     public bool isAnswered;
+    bool isInitialized = false;
     public IsAnswerCorrect checkedAnswer;
     public Text txtQuestion;
 
@@ -32,6 +33,7 @@ public class QuestionController : MonoBehaviour
 
     void Initialize()
     {
+        isInitialized = true;
         ActiveQuestion = null;
         QuestionQueue = new Queue<TriviaQuestion>();
         Questions = new List<TriviaQuestion>();
@@ -119,7 +121,8 @@ public class QuestionController : MonoBehaviour
 
     private void OnEnable()
     {
-        Initialize();
+        if(!isInitialized)
+            Initialize();
         //initialise question
         checkedAnswer = IsAnswerCorrect.unanswered;
         QuestionPanelGroup.alpha = 1;

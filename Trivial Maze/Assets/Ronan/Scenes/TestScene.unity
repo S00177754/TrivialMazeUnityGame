@@ -5568,8 +5568,8 @@ MonoBehaviour:
     Once you collect all three keys, head to the exit at the top of the maze.
 
 
-    Walk up to a trivia door and answer the question correctly to unlock the door,
-    providing a shortcut through the maze.
+    Walk up to a trivia door, PRESS G, then answer the question correctly to unlock
+    the door, providing a shortcut through the maze.
 
 
     Player 1 uses W,A,S,D and Left Shift.
@@ -5643,10 +5643,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1853968409}
-    characterCount: 353
+    characterCount: 364
     spriteCount: 0
-    spaceCount: 67
-    wordCount: 70
+    spaceCount: 69
+    wordCount: 72
     linkCount: 0
     lineCount: 10
     pageCount: 1
@@ -6796,7 +6796,7 @@ PrefabInstance:
     - target: {fileID: 2095118729516924633, guid: 93ec01ab748d8a546a00e6ad170d9195,
         type: 3}
       propertyPath: m_Name
-      value: QuestionWall
+      value: QuestionWall 1
       objectReference: {fileID: 0}
     - target: {fileID: 2095118729516924632, guid: 93ec01ab748d8a546a00e6ad170d9195,
         type: 3}
@@ -6811,7 +6811,7 @@ PrefabInstance:
     - target: {fileID: 2095118729516924632, guid: 93ec01ab748d8a546a00e6ad170d9195,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.6
+      value: -5.67
       objectReference: {fileID: 0}
     - target: {fileID: 2095118729516924632, guid: 93ec01ab748d8a546a00e6ad170d9195,
         type: 3}
