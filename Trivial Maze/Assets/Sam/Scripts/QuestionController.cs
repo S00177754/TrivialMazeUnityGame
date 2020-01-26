@@ -14,9 +14,9 @@ public class QuestionController : MonoBehaviour
     public CanvasGroup QuestionPanelGroup;
     List<string> Answers;
     string questionJson;
-    List<TriviaQuestion> Questions;
-    Queue<TriviaQuestion> QuestionQueue;
-    TriviaQuestion ActiveQuestion;
+    public List<TriviaQuestion> Questions;
+    public Queue<TriviaQuestion> QuestionQueue;
+    public TriviaQuestion ActiveQuestion;
     System.Random random;
 
     public float closeTimer;

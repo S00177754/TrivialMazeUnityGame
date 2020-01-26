@@ -37,6 +37,8 @@ public class QuestionWallController : MonoBehaviour
                     case (IsAnswerCorrect.no):
                         isAnswered = true;
                         questionControler.checkedAnswer = IsAnswerCorrect.unanswered;
+                        questionControler.ActiveQuestion = questionControler.QuestionQueue.Dequeue();
+                        questionControler.QuestionQueue.Enqueue(questionControler.ActiveQuestion);
                         QuestionCanvas.gameObject.SetActive(false);
                         break;//cannot reattempt answer
                     case (IsAnswerCorrect.yes):
@@ -46,6 +48,8 @@ public class QuestionWallController : MonoBehaviour
                             Debug.Log("Destroy Wall");
                             transform.parent.gameObject.SetActive(false);
                             questionControler.checkedAnswer = IsAnswerCorrect.unanswered;
+                            questionControler.ActiveQuestion = questionControler.QuestionQueue.Dequeue();
+                            questionControler.QuestionQueue.Enqueue(questionControler.ActiveQuestion);
                             QuestionCanvas.gameObject.SetActive(false);
                         }
                         break;
