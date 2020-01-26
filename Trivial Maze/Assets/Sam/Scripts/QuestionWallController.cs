@@ -53,6 +53,11 @@ public class QuestionWallController : MonoBehaviour
                         questionControler.ActiveQuestion = questionControler.QuestionQueue.Dequeue();
                         questionControler.QuestionQueue.Enqueue(questionControler.ActiveQuestion);
                         QuestionCanvas.gameObject.SetActive(false);
+                        GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
+                        foreach (GameObject player in gos)
+                        {
+                            player.GetComponent<PlayerMovementController>().MovementLocked = false;
+                        }
                         break;//cannot reattempt answer
                     case (IsAnswerCorrect.yes):
                         isAnswered = true;
@@ -65,8 +70,8 @@ public class QuestionWallController : MonoBehaviour
                             questionControler.QuestionQueue.Enqueue(questionControler.ActiveQuestion);
                             QuestionCanvas.gameObject.SetActive(false);
 
-                            GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
-                            foreach (GameObject player in gos)
+                            GameObject[] gameobjs = GameObject.FindGameObjectsWithTag("Player");
+                            foreach (GameObject player in gameobjs)
                             {
                                 player.GetComponent<PlayerMovementController>().MovementLocked = false;
                             }
