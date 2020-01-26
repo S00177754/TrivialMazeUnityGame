@@ -5,20 +5,25 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     //Public 
+    [Header("External Controllers")]
     public CharacterController characterController;
+    public PlayerLookController playerLookController;
 
+    [Header("Player Stats")]
     public float Speed = 10f;
     public float SprintSpeed = 14f;
-    //public float climbSpeed = 3f;
     public float JumpHeight = 2f;
     public float Gravity = -9.81f;
+    //public float climbSpeed = 3f;
+    public bool MovementLocked = false;
 
+    [Header("Interaction Variables")]
     public Transform bottomOfPlayer;
     public Transform frontOfPlayer;
-    public PlayerLookController playerLookController;
     public LayerMask groundLayer;
     public LayerMask defaultLayer;
 
+    [Header("Input Strings")]
     public string HorizontalInput;
     public string VerticalInput;
     public string SprintInput;
@@ -47,79 +52,84 @@ public class PlayerMovementController : MonoBehaviour
             velocity.y = -2f; //works but still seems a little floaty, going to try and incorporate mass into formula   
         }
 
-        #region Movement X and z
-
-        //Take input and move by it
-        float xMove = Input.GetAxis(HorizontalInput);
-        float zMove = Input.GetAxis(VerticalInput);
-
-        Vector3 direction = transform.right * xMove + transform.forward * zMove;
-
-        if (!isTouchingClimbable)
+        if (!MovementLocked)
         {
-            if (Input.GetButton(SprintInput))//Sprint setup in input axis
+
+            #region Movement X and z
+
+            //Take input and move by it
+            float xMove = Input.GetAxis(HorizontalInput);
+            float zMove = Input.GetAxis(VerticalInput);
+
+            Vector3 direction = transform.right * xMove + transform.forward * zMove;
+
+            if (!isTouchingClimbable)
             {
-                characterController.Move(direction * Time.deltaTime * SprintSpeed);
+                if (Input.GetButton(SprintInput))//Sprint setup in input axis
+                {
+                    characterController.Move(direction * Time.deltaTime * SprintSpeed);
+                }
+                else
+                {
+                    characterController.Move(direction * Time.deltaTime * Speed);
+                }
             }
-            else
+
+            //else if(isTouchingClimbable && isTouchingGround)
+            //{
+            //    if (Input.GetButton("Sprint"))//Sprint setup in input axis
+            //    {
+            //        characterController.Move(direction * Time.deltaTime * SprintSpeed);
+            //    }
+            //    else
+            //    {
+            //        characterController.Move(direction * Time.deltaTime * Speed);
+            //    }
+            //}
+
+            #endregion
+
+            #region Jump
+
+            if (Input.GetButtonDown("Jump") && isTouchingGround)
             {
-                characterController.Move(direction * Time.deltaTime * Speed);
+                velocity.y = Mathf.Sqrt(JumpHeight * -2 * Gravity); //v = Square root of (h * -2 * g)
             }
+
+            #endregion
+
+            #region Climb
+
+
+            //if(Physics.Raycast(frontOfPlayer.position, frontOfPlayer.up, out hit, ClimbCheckRadius, defaultLayer))
+            //{
+            //    Debug.Log("Did Hit");
+
+            //    if(hit.collider.gameObject.tag == "Climbable")
+            //    {
+            //        Debug.Log("Climbable");
+            //        isTouchingClimbable = true;
+            //        playerLookController.LockedView = true;
+            //    }
+
+            //}
+            //else
+            //{
+            //    isTouchingClimbable = false;
+            //    playerLookController.LockedView = false;
+            //}
+
+
+            ////Climbing movement
+            //if (isTouchingClimbable)
+            //{
+            //    characterController.Move((transform.up * zMove + transform.right * xMove) * climbSpeed * Time.deltaTime);
+            //}
+
+
+            #endregion
+
         }
-
-        //else if(isTouchingClimbable && isTouchingGround)
-        //{
-        //    if (Input.GetButton("Sprint"))//Sprint setup in input axis
-        //    {
-        //        characterController.Move(direction * Time.deltaTime * SprintSpeed);
-        //    }
-        //    else
-        //    {
-        //        characterController.Move(direction * Time.deltaTime * Speed);
-        //    }
-        //}
-
-        #endregion
-
-        #region Jump
-
-        if (Input.GetButtonDown("Jump") && isTouchingGround)
-        {
-            velocity.y = Mathf.Sqrt(JumpHeight * -2 * Gravity); //v = Square root of (h * -2 * g)
-        }
-
-        #endregion
-
-        #region Climb
-
-        
-        //if(Physics.Raycast(frontOfPlayer.position, frontOfPlayer.up, out hit, ClimbCheckRadius, defaultLayer))
-        //{
-        //    Debug.Log("Did Hit");
-
-        //    if(hit.collider.gameObject.tag == "Climbable")
-        //    {
-        //        Debug.Log("Climbable");
-        //        isTouchingClimbable = true;
-        //        playerLookController.LockedView = true;
-        //    }
-            
-        //}
-        //else
-        //{
-        //    isTouchingClimbable = false;
-        //    playerLookController.LockedView = false;
-        //}
-
-
-        ////Climbing movement
-        //if (isTouchingClimbable)
-        //{
-        //    characterController.Move((transform.up * zMove + transform.right * xMove) * climbSpeed * Time.deltaTime);
-        //}
-
-
-        #endregion
 
         if (!isTouchingClimbable)
         {

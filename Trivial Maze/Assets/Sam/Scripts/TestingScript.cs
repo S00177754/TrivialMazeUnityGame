@@ -8,7 +8,7 @@ public class TestingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        QuestionCanvas.enabled = false;   
+        QuestionCanvas.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -16,7 +16,7 @@ public class TestingScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
-            QuestionCanvas.enabled = !QuestionCanvas.enabled;
+            QuestionCanvas.gameObject.SetActive(true);
         }
     }
 }
