@@ -6,7 +6,7 @@ using System;
 
 public class SignalRController : MonoBehaviour
 {
-    public string hubServerAddress = "https://localhost:44328/";
+    public string hubServerAddress = "https://localhost:44342/";
     public string hubName = "ChatHub";
     public bool isConnected = false;
     public bool isLoggedIn = false;

@@ -28,7 +28,7 @@ public class ChatBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private IEnumerator CreateChatBox(string message)
     {
         GameObject textGameObject = Instantiate(ChatMessage, content.transform);
-        TextMeshProUGUI textControl = textGameObject.GetComponent<TextMeshProUGUI>();
+        Text textControl = textGameObject.GetComponent<Text>();
         textControl.text = message;
 
         yield return null;
@@ -36,21 +36,25 @@ public class ChatBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void SignalRController_OnMessageRecieved(string value)
     {
+        Debug.Log("OnMsg Recieved");
         UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value));
     }
 
     private void SignalRController_OnUserLeft(string value)
     {
+        Debug.Log("OnUser Left");
         UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value + " has left."));
     }
 
     private void SignalRController_OnUserJoined(string value)
     {
+        Debug.Log("On User Joined");
         UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox(value + " has joined."));
     }
 
     private void SignalRController_OnLoggedIn()
     {
+        Debug.Log("OnLoggedIn");
         UnityMainThreadDispatcher.Instance().Enqueue(CreateChatBox("LoggedIn"));
     }
 
@@ -72,10 +76,12 @@ public class ChatBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SendChatMessage()
     {
+        Debug.Log("Send Chat Message");
         if (txtMessage != null)
         {
             if (!string.IsNullOrEmpty(txtMessage.text))
             {
+                Debug.Log("txtMessage not null or empty");
                 signalRController.SendChatMessage(txtMessage.text);
                 StartCoroutine(CreateChatBox(txtMessage.text));
 
